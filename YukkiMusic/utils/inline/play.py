@@ -55,11 +55,11 @@ def stream_markup_timer(_, videoid, chat_id, played, dur, user_id=None):
     if user_id and type(user_id) is int:
         user_mention = [
             InlineKeyboardButton(
-                text="ReQuested By",
+                text="Requested by 👥",
                 url=f"tg://user?id={user_id}",
             )
         ]
-        buttons[0].insert(1, user_mention)
+        buttons.insert(1, user_mention)
     return buttons
 
 
@@ -83,11 +83,11 @@ def telegram_markup_timer(_, chat_id, played, dur, user_id=None):
     if user_id and type(user_id) is int:
         user_mention = [
             InlineKeyboardButton(
-                text="ReQuested By",
+                text="Requested by 👥",
                 url=f"tg://user?id={user_id}",
             )
         ]
-        buttons[0].insert(1, user_mention)
+        buttons.insert(1, user_mention)
     return buttons
 
 
@@ -111,11 +111,11 @@ def stream_markup(_, videoid, chat_id, user_id=None):
     if user_id and type(user_id) is int:
         user_mention = [
             InlineKeyboardButton(
-                text="ReQuested By",
+                text="Requested by 👥",
                 url=f"tg://user?id={user_id}",
             )
         ]
-        buttons[0].insert(0, user_mention)
+        buttons.insert(0, user_mention)
     return buttons
 
 
@@ -132,11 +132,11 @@ def telegram_markup(_, chat_id, user_id=None):
     if user_id and type(user_id) is int:
         user_mention = [
             InlineKeyboardButton(
-                text="ReQuested By",
+                text="Requested by 👥",
                 url=f"tg://user?id={user_id}",
             )
         ]
-        buttons[0].insert(0, user_mention)
+        buttons.insert(0, user_mention)
     return buttons
 
 
