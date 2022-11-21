@@ -31,7 +31,7 @@ selections = [
 ## After Edits with Timer Bar
 
 
-def stream_markup_timer(_, videoid, chat_id, played, dur):
+def stream_markup_timer(_, videoid, chat_id, played, dur, user_id=None):
     bar = random.choice(selections)
     buttons = [
         [
@@ -56,10 +56,17 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
             )
         ],
     ]
+    if user_id and type(user_id) is int:
+        user_mention = [
+            InlineKeyboardButton(
+                text="ReQuested By", url=f"tg://user?id={user_id}",
+            )
+        ]
+        buttons[0].insert(1, user_mention)
     return buttons
 
 
-def telegram_markup_timer(_, chat_id, played, dur):
+def telegram_markup_timer(_, chat_id, played, dur, user_id=None):
     bar = random.choice(selections)
     buttons = [
         [
@@ -78,13 +85,20 @@ def telegram_markup_timer(_, chat_id, played, dur):
             ),
         ],
     ]
+    if user_id and type(user_id) is int:
+        user_mention = [
+            InlineKeyboardButton(
+                text="ReQuested By", url=f"tg://user?id={user_id}",
+            )
+        ]
+        buttons[0].insert(1, user_mention)
     return buttons
 
 
 ## Inline without Timer Bar
 
 
-def stream_markup(_, videoid, chat_id):
+def stream_markup(_, videoid, chat_id, user_id=None):
     buttons = [
         [
             InlineKeyboardButton(
@@ -102,10 +116,17 @@ def stream_markup(_, videoid, chat_id):
             )
         ],
     ]
+    if user_id and type(user_id) is int:
+        user_mention = [
+            InlineKeyboardButton(
+                text="ReQuested By", url=f"tg://user?id={user_id}",
+            )
+        ]
+        buttons[0].insert(0, user_mention)
     return buttons
 
 
-def telegram_markup(_, chat_id):
+def telegram_markup(_, chat_id, user_id=None):
     buttons = [
         [
             InlineKeyboardButton(
@@ -117,6 +138,13 @@ def telegram_markup(_, chat_id):
             ),
         ],
     ]
+    if user_id and type(user_id) is int:
+        user_mention = [
+            InlineKeyboardButton(
+                text="ReQuested By", url=f"tg://user?id={user_id}",
+            )
+        ]
+        buttons[0].insert(0, user_mention)
     return buttons
 
 

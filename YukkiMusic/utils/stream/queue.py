@@ -40,6 +40,7 @@ async def put_queue(
         "file": file,
         "vidid": vidid,
         "seconds": duration_in_seconds,
+        "user_id": user_id,
         "played": 0,
     }
     if forceplay:
@@ -73,6 +74,7 @@ async def put_queue_index(
     vidid,
     stream,
     forceplay: Union[bool, str] = None,
+    user_id = None,
 ):
     put = {
         "title": title,
@@ -84,6 +86,7 @@ async def put_queue_index(
         "vidid": vidid,
         "seconds": 0,
         "played": 0,
+        "user_id": user_id,
     }
     if forceplay:
         check = db.get(chat_id)
