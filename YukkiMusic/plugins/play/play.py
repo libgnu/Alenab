@@ -18,7 +18,7 @@ from pytgcalls.exceptions import NoActiveGroupCall
 import config
 from config import BANNED_USERS, lyrical
 from strings import get_command
-from YukkiMusic import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
+from YukkiMusic import Apple, LOGGER, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.utils import seconds_to_min, time_to_seconds
 from YukkiMusic.utils.channelplay import get_channeplayCB
@@ -107,6 +107,7 @@ async def play_commnd(
                     forceplay=fplay,
                 )
             except Exception as e:
+                LOGGER(__name__).exception(e)
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_3"].format(ex_type)
                 return await mystic.edit_text(err)
@@ -153,6 +154,7 @@ async def play_commnd(
                     forceplay=fplay,
                 )
             except Exception as e:
+                LOGGER(__name__).exception(e)
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_3"].format(ex_type)
                 return await mystic.edit_text(err)
@@ -168,7 +170,7 @@ async def play_commnd(
                         message.from_user.id,
                     )
                 except Exception as e:
-                    print(e)
+                    LOGGER(__name__).exception(e)
                     return await mystic.edit_text(_["play_3"])
                 streamtype = "playlist"
                 plist_type = "yt"
@@ -182,7 +184,8 @@ async def play_commnd(
                 try:
                     details, track_id = await YouTube.track(url)
                 except Exception as e:
-                    print(e)
+                    # print(e)
+                    LOGGER(__name__).exception(e)
                     return await mystic.edit_text(_["play_3"])
                 streamtype = "youtube"
                 img = details["thumb"]
@@ -304,6 +307,7 @@ async def play_commnd(
                     "Please turn on Voice Chat.. Bot is not able to stream urls..",
                 )
             except Exception as e:
+                LOGGER(__name__).exception(e)
                 return await mystic.edit_text(_["general_3"].format(type(e).__name__))
             await mystic.edit_text(_["str_2"])
             try:
@@ -320,6 +324,7 @@ async def play_commnd(
                     forceplay=fplay,
                 )
             except Exception as e:
+                LOGGER(__name__).exception(e)
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_3"].format(ex_type)
                 return await mystic.edit_text(err)
@@ -379,6 +384,7 @@ async def play_commnd(
                 forceplay=fplay,
             )
         except Exception as e:
+            LOGGER(__name__).exception(e)
             ex_type = type(e).__name__
             err = e if ex_type == "AssistantErr" else _["general_3"].format(ex_type)
             return await mystic.edit_text(err)
@@ -604,6 +610,7 @@ async def play_playlists_command(client, CallbackQuery, _):
             forceplay=ffplay,
         )
     except Exception as e:
+        LOGGER(__name__).exception(e)
         ex_type = type(e).__name__
         err = e if ex_type == "AssistantErr" else _["general_3"].format(ex_type)
         return await mystic.edit_text(err)
