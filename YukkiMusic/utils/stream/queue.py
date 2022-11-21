@@ -74,7 +74,7 @@ async def put_queue_index(
     vidid,
     stream,
     forceplay: Union[bool, str] = None,
-    user_id = None,
+    user_id=None,
 ):
     put = {
         "title": title,
