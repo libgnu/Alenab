@@ -56,7 +56,7 @@ def stream_markup_timer(_, videoid, chat_id, played, dur, user_id=None):
         user_mention = [
             InlineKeyboardButton(
                 text="Requested by 👥",
-                url=f"tg://user?id={user_id}",
+                url=f"tg://openmessage?user_id={user_id}",
             )
         ]
         buttons.insert(1, user_mention)
@@ -84,7 +84,7 @@ def telegram_markup_timer(_, chat_id, played, dur, user_id=None):
         user_mention = [
             InlineKeyboardButton(
                 text="Requested by 👥",
-                url=f"tg://user?id={user_id}",
+                url=f"tg://openmessage?user_id={user_id}",
             )
         ]
         buttons.insert(1, user_mention)
@@ -112,7 +112,7 @@ def stream_markup(_, videoid, chat_id, user_id=None):
         user_mention = [
             InlineKeyboardButton(
                 text="Requested by 👥",
-                url=f"tg://user?id={user_id}",
+                url=f"tg://openmessage?user_id={user_id}",
             )
         ]
         buttons.insert(0, user_mention)
@@ -133,7 +133,7 @@ def telegram_markup(_, chat_id, user_id=None):
         user_mention = [
             InlineKeyboardButton(
                 text="Requested by 👥",
-                url=f"tg://user?id={user_id}",
+                url=f"tg://openmessage?user_id={user_id}",
             )
         ]
         buttons.insert(0, user_mention)
