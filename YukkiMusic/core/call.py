@@ -340,6 +340,7 @@ class Call(PyTgCalls):
             video_stream_quality = await get_video_bitrate(chat_id)
             videoid = check[0]["vidid"]
             check[0]["played"] = 0
+            user_id = check[0].get("user_id")
             if "live_" in queued:
                 n, link = await YouTube.video(videoid, True)
                 if n == 0:
@@ -364,12 +365,12 @@ class Call(PyTgCalls):
                         text=_["call_9"],
                     )
                 img = await gen_thumb(videoid)
-                button = telegram_markup(_, chat_id)
+                button = telegram_markup(_, chat_id, user_id=user_id)
                 run = await app.send_photo(
                     original_chat_id,
                     photo=img,
                     caption=_["stream_1"].format(
-                        user,
+                        str(original_chat_id),
                         f"https://t.me/{app.username}?start=info_{videoid}",
                     ),
                     reply_markup=InlineKeyboardMarkup(button),
@@ -409,13 +410,13 @@ class Call(PyTgCalls):
                         text=_["call_9"],
                     )
                 img = await gen_thumb(videoid)
-                button = stream_markup(_, videoid, chat_id)
+                button = stream_markup(_, videoid, chat_id, user_id=user_id)
                 await mystic.delete()
                 run = await app.send_photo(
                     original_chat_id,
                     photo=img,
                     caption=_["stream_1"].format(
-                        user,
+                        str(original_chat_id),
                         f"https://t.me/{app.username}?start=info_{videoid}",
                     ),
                     reply_markup=InlineKeyboardMarkup(button),
@@ -439,11 +440,11 @@ class Call(PyTgCalls):
                         original_chat_id,
                         text=_["call_9"],
                     )
-                button = telegram_markup(_, chat_id)
+                button = telegram_markup(_, chat_id, user_id=user_id)
                 run = await app.send_photo(
                     original_chat_id,
                     photo=config.STREAM_IMG_URL,
-                    caption=_["stream_2"].format(user),
+                    caption=_["stream_2"].format(str(original_chat_id)),
                     reply_markup=InlineKeyboardMarkup(button),
                 )
                 db[chat_id][0]["mystic"] = run
@@ -466,35 +467,39 @@ class Call(PyTgCalls):
                         text=_["call_9"],
                     )
                 if videoid == "telegram":
-                    button = telegram_markup(_, chat_id)
+                    button = telegram_markup(_, chat_id, user_id=user_id)
                     run = await app.send_photo(
                         original_chat_id,
                         photo=config.TELEGRAM_AUDIO_URL
                         if str(streamtype) == "audio"
                         else config.TELEGRAM_VIDEO_URL,
-                        caption=_["stream_3"].format(title, check[0]["dur"], user),
+                        caption=_["stream_3"].format(
+                            title, check[0]["dur"], str(original_chat_id)
+                        ),
                         reply_markup=InlineKeyboardMarkup(button),
                     )
                     db[chat_id][0]["mystic"] = run
                     db[chat_id][0]["markup"] = "tg"
                 elif videoid == "soundcloud":
-                    button = telegram_markup(_, chat_id)
+                    button = telegram_markup(_, chat_id, user_id=user_id)
                     run = await app.send_photo(
                         original_chat_id,
                         photo=config.SOUNCLOUD_IMG_URL,
-                        caption=_["stream_3"].format(title, check[0]["dur"], user),
+                        caption=_["stream_3"].format(
+                            title, check[0]["dur"], str(original_chat_id)
+                        ),
                         reply_markup=InlineKeyboardMarkup(button),
                     )
                     db[chat_id][0]["mystic"] = run
                     db[chat_id][0]["markup"] = "tg"
                 else:
                     img = await gen_thumb(videoid)
-                    button = stream_markup(_, videoid, chat_id)
+                    button = stream_markup(_, videoid, chat_id, user_id=user_id)
                     run = await app.send_photo(
                         original_chat_id,
                         photo=img,
                         caption=_["stream_1"].format(
-                            user,
+                            str(original_chat_id),
                             f"https://t.me/{app.username}?start=info_{videoid}",
                         ),
                         reply_markup=InlineKeyboardMarkup(button),
