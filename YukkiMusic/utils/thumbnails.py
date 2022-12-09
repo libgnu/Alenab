@@ -9,7 +9,6 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont, ImageOps
 from youtubesearchpython.__future__ import VideosSearch
 
 from config import MUSIC_BOT_NAME, YOUTUBE_IMG_URL
-from back import files
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -65,9 +64,9 @@ async def gen_thumb(videoid):
                     await f.close()
 
         
-
+        
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"back/{anime}.PNG")
+        bg = Image.open(f"assets/20221129_201742.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(30))
@@ -170,7 +169,7 @@ async def gen_qthumb(videoid):
                     await f.close()
 
         youtube = Image.open(f"cache/thumb{videoid}.png")
-        bg = Image.open(f"back/{anime}.PNG")
+        bg = Image.open(f"assets/20221129_201742.png")
         image1 = changeImageSize(1280, 720, youtube)
         image2 = image1.convert("RGBA")
         background = image2.filter(filter=ImageFilter.BoxBlur(30))
